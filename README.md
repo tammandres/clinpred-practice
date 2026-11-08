@@ -7,13 +7,20 @@ It includes a brief example of how penalised logistic regression, Explainable Bo
 
 ## Usage
 
-To run this code on your local computer:
+You could open the `example.ipynb` notebook on Binder: 
+https://mybinder.org/v2/gh/tammandres/clinpred-practice/HEAD?labpath=example.ipynb
+
+When you do, it may take some time for the environment to install and be ready.
+
+To run this code on your local computer instead:
 
 1. Install miniconda, https://www.anaconda.com/docs/getting-started/miniconda/install/windows-gui-install
 
 2. Install Visual Studio Code (VSCode), https://code.visualstudio.com/
 
-3. Then open VSCode -> Terminal -> New Terminal, and run the following
+3. Inside VSCode, install python and Jupyter extensions
+
+4. Then open VSCode -> Terminal -> New Terminal, and run the following
 ```
 conda create -n clinpred python=3.9
 pip install -r requirements.txt
@@ -23,7 +30,9 @@ conda activate clinpred
 This will create a virtual environment that contains python and required python packages.
 Virtual environments are good for creating an isolated setup that has specific versions of the packages.
 
-When using visual studio code, set "clinpred" as the default conda environemnt "cmd + shift + P" -> "Python: Select Interpreter" -> clinpred.
+5. When using VSCode, set "clinpred" as the default conda environment: "cmd + shift + P" -> "Python: Select Interpreter" -> clinpred.
+
+6. Finally, click on the `example.ipynb` file and it should be usable inside VSCode.
 
 
 ## Files
