@@ -1,18 +1,20 @@
-"""How to apply penalised logistic regression, explainable boosting machine, and xgboost models
-to predict a binary outcome.
+"""How to apply penalised logistic regression (PLR), explainable boosting machine (EBM), 
+and xgboost (XGB) models to predict a binary outcome
 
-This script contains minimal code for applying these types of models to the data,
-including the finding of best hyperparameteres.
+This script contains minimal code for applying PLR, EBM and XGB models to the data, 
+including the finding of best hyperparameters.
 
 We first split data into train (80%), validation (20%) and test (20%) sets.
-We fit models with different hyperparameters on train set, evaluate them on validation set using the AUC metric,
+We fit models with different hyperparameters on train set, 
+evaluate them on validation set using the AUC metric (area under the ROC curve), 
 then pick the hyperparameter combination that had the highest validation set AUC.
 
-If the validation set is small, or has a small number of individuals with an outcome.
-then this is not the most rigorous way of finding hyperparameters.
-In that case, the validation set scores may not be representative,
+If the validation set is small, or has a small number of individuals with an outcome, 
+then this is not the most rigorous way of finding hyperparameters. 
+In that case, the validation set scores may not be representative, 
 as they are driven by the smaller number of individuals with the outcome.
-A more rigorous way is to use an inner cross-validation loop: 
+
+A more rigorous way is to use an inner cross-validation loop:
 - split out the test set
 - split the remaining data into four folds (as an example)
 - at each iteration, one fold serves as the validation set and the remaining as the train set
@@ -20,9 +22,16 @@ A more rigorous way is to use an inner cross-validation loop:
   and evaluate it on the corresponding validation set.
   For each hyperparameter combination, we thus have four models we trained and four validation set scores.
   We compute the average validation set score, and perhaps its standard deviation.
-  We select the combination that had highest average validation set score, 
+  We select the combination that had highest average validation set score,
+
 However, this can be time consuming in practice. 
 For simplicity, we keep a single train-validation split.
+
+Andres Tamm
+
+9 November 2026
+
+https://github.com/tammandres/clinpred-practice
 """
 from sklearn.linear_model import LogisticRegression   # for logistic regression
 from sklearn.model_selection import train_test_split  # to split data into train-validation-test sets
@@ -37,10 +46,6 @@ import numpy as np
 
 
 # ---- PREPARE DATA ----
-
-# Load data
-#data_path = PROJECT_ROOT / 'data'
-#df = pd.read_csv(data_path / 'nhanes.csv')
 
 # Helper function to create a dummy dataset
 def dummy_data(n=1000, bias=-6, random_state=42,
