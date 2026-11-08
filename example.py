@@ -24,7 +24,6 @@ A more rigorous way is to use an inner cross-validation loop:
 However, this can be time consuming in practice. 
 For simplicity, we keep a single train-validation split.
 """
-from constants import PROJECT_ROOT
 from sklearn.linear_model import LogisticRegression   # for logistic regression
 from sklearn.model_selection import train_test_split  # to split data into train-validation-test sets
 from sklearn.metrics import roc_auc_score             # to evaluate how the models perform
