@@ -1,5 +1,5 @@
 """
-# How to apply penalised logistic regressio (PLR), explainable boosting machine (EBM), and xgboost (XGB) models to predict a binary outcome
+# How to apply penalised logistic regression (PLR), explainable boosting machine (EBM), and xgboost (XGB) models to predict a binary outcome
 
 This script contains minimal code for applying PLR, EBM and XGB models to the data,
 including the finding of best hyperparameters.
