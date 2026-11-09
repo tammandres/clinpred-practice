@@ -5,7 +5,7 @@ This script contains minimal code for applying PLR, EBM and XGB models to a data
 including the finding of best hyperparameters. We use simulated data in this example,
 but if you have your own dataset that you work with, you can use that too.
 
-We first split data into train (80%), validation (20%) and test (20%) sets.
+We first split data into train (60%), validation (20%) and test (20%) sets.
 We fit models with different hyperparameters on the train set, 
 evaluate them on validation set using the AUC metric,
 and then pick the hyperparameter combination that had the highest validation set AUC.
@@ -24,7 +24,7 @@ In these cases, a more rigorous way of hyperparameter tuning is to use an inner 
 
 - For each hyperparameter combination, we thus have four models we trained and four validation set scores.
   We compute the average validation set score, and perhaps its standard deviation.
-  We select the combination that had the highest average validation set score,
+  We select the combination that had the highest average validation set score.
 
 However, this can be time consuming in practice.
 For simplicity, we keep a single train-validation split in this example.
@@ -95,7 +95,7 @@ def dummy_data(n=1000, bias=-6, random_state=42,
 #  The data will have three variables that are associated with the cancer outcome: age, sex, platelets
 #  it will also have 100 variables that have no association, these are called "noise1", "noise2", etc
 #  When the noise variables are included, the models are more likely to overfit, as they will try to use
-#  the random patterns that appear in sampled noise variables to classify patients, even thouhgh these patterns
+#  the random patterns that appear in sampled noise variables to classify patients, even though these patterns
 #  are not generalisable
 df, __ = dummy_data(n=1000, p_noise=100, bias=-6, w_age=5., w_plt=4.8)
 print(df.shape[0], "rows in data")
@@ -106,14 +106,14 @@ print(df.cancer.sum(), "num individuals with cancer")
 x = df.drop(labels=['cancer'], axis=1)
 y = df.cancer
 
-# Split data into "model selection (sel) and test sets, setting aside 20% as the test set
+# Split data into "model selection" (sel) and test sets, setting aside 20% as the test set
 # We use a stratified split, so that the proportion of patients with cancer remains constant
 x_sel, x_test, y_sel, y_test = train_test_split(x, y, stratify=y, test_size=0.2, random_state=42)
 
 # Split model selection set further into train and validation (val) sets, so that val set forms 20% of the total data
 x_train, x_val, y_train, y_val = train_test_split(x_sel, y_sel, stratify=y_sel, test_size=0.25, random_state=42)
 
-# Review number of observations in the datasets, and number of people with cancer ine ach
+# Review number of observations in the datasets, and number of people with cancer in each
 print(y_train.shape[0], y_val.shape[0], y_test.shape[0])
 print(y_train.sum(), y_val.sum(), y_test.sum())
 
