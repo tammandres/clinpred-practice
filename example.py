@@ -1,31 +1,32 @@
-"""How to apply penalised logistic regression (PLR), explainable boosting machine (EBM), 
-and xgboost (XGB) models to predict a binary outcome
+"""
+# How to apply penalised logistic regressio (PLR), explainable boosting machine (EBM), and xgboost (XGB) models to predict a binary outcome
 
-This script contains minimal code for applying PLR, EBM and XGB models to the data, 
+This script contains minimal code for applying PLR, EBM and XGB models to the data,
 including the finding of best hyperparameters.
 
 We first split data into train (80%), validation (20%) and test (20%) sets.
-We fit models with different hyperparameters on train set, 
-evaluate them on validation set using the AUC metric (area under the ROC curve), 
-then pick the hyperparameter combination that had the highest validation set AUC.
+We fit models with different hyperparameters on the train set, 
+evaluate them on validation set using the AUC metric,
+and then pick the hyperparameter combination that had the highest validation set AUC.
 
-If the validation set is small, or has a small number of individuals with an outcome, 
-then this is not the most rigorous way of finding hyperparameters. 
-In that case, the validation set scores may not be representative, 
-as they are driven by the smaller number of individuals with the outcome.
+If the validation set is small, or has a small number of individuals with an outcome,
+then the validation set scores may not be representative of the dataset as a whole.
+In these cases, a more rigorous way of hyperparameter tuning is to use an inner cross-validation loop:
 
-A more rigorous way is to use an inner cross-validation loop:
-- split out the test set
-- split the remaining data into four folds (as an example)
-- at each iteration, one fold serves as the validation set and the remaining as the train set
-  we train the model with a hyperparameter combination on each of the four training sets,
+- Split out the test set;
+
+- Split the remaining data into four folds (as an example);
+
+- At each iteration, one fold serves as the validation set and the remaining as the train set.
+  We train the model with a hyperparameter combination on each of the four training sets,
   and evaluate it on the corresponding validation set.
-  For each hyperparameter combination, we thus have four models we trained and four validation set scores.
-  We compute the average validation set score, and perhaps its standard deviation.
-  We select the combination that had highest average validation set score,
 
-However, this can be time consuming in practice. 
-For simplicity, we keep a single train-validation split.
+- For each hyperparameter combination, we thus have four models we trained and four validation set scores.
+  We compute the average validation set score, and perhaps its standard deviation.
+  We select the combination that had the highest average validation set score,
+
+However, this can be time consuming in practice.
+For simplicity, we keep a single train-validation split in this example.
 
 Andres Tamm
 
